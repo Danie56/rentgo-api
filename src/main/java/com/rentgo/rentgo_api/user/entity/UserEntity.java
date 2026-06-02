@@ -22,10 +22,10 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-    @Column(name = "create_at",nullable = false)
-    private LocalDateTime crateAt;
-    @Column(name = "update_at",nullable = false)
-    private LocalDateTime updateAt;
+    @Column(name = "created_at",nullable = false)
+    private LocalDateTime cratedAt;
+    @Column(name = "updated_at",nullable = false)
+    private LocalDateTime updatedAt;
 
 
 
