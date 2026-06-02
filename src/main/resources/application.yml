@@ -1,5 +1,5 @@
 spring:
   application:
-    name: rentgo-core
+    name: rentgo-api
   profiles:
     active: dev
