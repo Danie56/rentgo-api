@@ -1,5 +1,0 @@
-spring:
-  application:
-    name: rentgo-core
-  profiles:
-    active: dev

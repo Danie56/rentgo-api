@@ -1,3 +1,5 @@
 spring:
   application:
     name: rentgo-api
+  profiles:
+    active: dev 
