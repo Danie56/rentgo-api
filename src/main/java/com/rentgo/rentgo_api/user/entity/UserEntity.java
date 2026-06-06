@@ -2,10 +2,7 @@ package com.rentgo.rentgo_api.user.entity;
 
 import com.rentgo.rentgo_api.common.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,11 +10,13 @@ import java.util.UUID;
 @Entity
 @Table(name="users")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(name = "first_name",nullable = false)
     private String firstName;
@@ -34,6 +33,10 @@ public class UserEntity {
     private LocalDateTime createdAt;
     @Column(name = "updated_at",nullable = false)
     private LocalDateTime updatedAt;
+    @PrePersist
+    public void prePersist(){
+        this.createdAt = LocalDateTime.now();
+    }
 
 
 
