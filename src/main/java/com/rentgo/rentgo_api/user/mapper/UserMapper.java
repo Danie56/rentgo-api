@@ -13,8 +13,6 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface UserMapper {
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
     UserEntity toEntity(CreateUserRequest request);
 
     UserResponse toResponse(UserEntity entity);
