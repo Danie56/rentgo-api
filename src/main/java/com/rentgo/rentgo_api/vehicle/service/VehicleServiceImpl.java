@@ -4,12 +4,7 @@ package com.rentgo.rentgo_api.vehicle.service;
 import com.rentgo.rentgo_api.common.enums.VehicleStatus;
 import com.rentgo.rentgo_api.common.exceptions.BusinessException;
 import com.rentgo.rentgo_api.common.exceptions.ResourceNotFoundException;
-import com.rentgo.rentgo_api.user.dto.CreateUserRequest;
-import com.rentgo.rentgo_api.user.dto.UserResponse;
-import com.rentgo.rentgo_api.user.entity.UserEntity;
-import com.rentgo.rentgo_api.user.mapper.UserMapper;
-import com.rentgo.rentgo_api.user.repository.UserRepository;
-import com.rentgo.rentgo_api.user.service.UserService;
+import com.rentgo.rentgo_api.vehicle.dto.ChangeVehicleStatusRequest;
 import com.rentgo.rentgo_api.vehicle.dto.CreateVehicleRequest;
 import com.rentgo.rentgo_api.vehicle.dto.VehicleResponse;
 import com.rentgo.rentgo_api.vehicle.entity.VehicleEntity;
@@ -47,9 +42,9 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public VehicleResponse enableVehicle(String plate) {
+    public VehicleResponse changeStatus(String plate, ChangeVehicleStatusRequest request) {
         VehicleEntity vehicle = repository.findByPlate(plate).orElseThrow(()-> new ResourceNotFoundException( "Vehicle with id " + plate + " not found"));
-        vehicle.setStatus(VehicleStatus.OUT_OF_SERVICE);
+        vehicle.setStatus(request.getStatus());
 
         return mapper.toResponse(repository.save(vehicle));
     }
