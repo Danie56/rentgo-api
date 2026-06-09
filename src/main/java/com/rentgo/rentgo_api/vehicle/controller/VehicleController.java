@@ -7,6 +7,7 @@ import com.rentgo.rentgo_api.user.dto.UserResponse;
 import com.rentgo.rentgo_api.user.service.UserService;
 import com.rentgo.rentgo_api.vehicle.dto.ChangeVehicleStatusRequest;
 import com.rentgo.rentgo_api.vehicle.dto.CreateVehicleRequest;
+import com.rentgo.rentgo_api.vehicle.dto.UpdateVehicleRequest;
 import com.rentgo.rentgo_api.vehicle.dto.VehicleResponse;
 import com.rentgo.rentgo_api.vehicle.service.VehicleService;
 import jakarta.validation.Valid;
@@ -43,5 +44,10 @@ public class VehicleController {
     public  ResponseEntity<VehicleResponse>changeStatus(@PathVariable String plate,@Valid @RequestBody ChangeVehicleStatusRequest request){
 
         return ResponseEntity.ok(service.changeStatus(plate,request));
+    }
+    @PatchMapping("/{plate}")
+    public  ResponseEntity<VehicleResponse>updateVehicle(@PathVariable String plate,@Valid @RequestBody UpdateVehicleRequest request){
+
+        return ResponseEntity.ok(service.UpdateVehicle(request,plate));
     }
 }
