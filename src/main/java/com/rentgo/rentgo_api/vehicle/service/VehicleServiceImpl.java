@@ -6,6 +6,7 @@ import com.rentgo.rentgo_api.common.exceptions.BusinessException;
 import com.rentgo.rentgo_api.common.exceptions.ResourceNotFoundException;
 import com.rentgo.rentgo_api.vehicle.dto.ChangeVehicleStatusRequest;
 import com.rentgo.rentgo_api.vehicle.dto.CreateVehicleRequest;
+import com.rentgo.rentgo_api.vehicle.dto.UpdateVehicleRequest;
 import com.rentgo.rentgo_api.vehicle.dto.VehicleResponse;
 import com.rentgo.rentgo_api.vehicle.entity.VehicleEntity;
 import com.rentgo.rentgo_api.vehicle.mapper.VehicleMapper;
@@ -13,6 +14,7 @@ import com.rentgo.rentgo_api.vehicle.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -32,6 +34,20 @@ public class VehicleServiceImpl implements VehicleService {
         }
         VehicleEntity vehicle = mapper.toEntity(request);
         vehicle.setStatus(VehicleStatus.AVAILABLE);
+
+        return mapper.toResponse(repository.save(vehicle));
+    }
+
+    @Override
+    public VehicleResponse UpdateVehicle(UpdateVehicleRequest request, String plate) {
+        VehicleEntity vehicle = repository.findByPlate(plate).orElseThrow(()-> new ResourceNotFoundException( "Vehicle with id " + plate + " not found"));
+
+        vehicle.setBrand(request.getBrand());
+        vehicle.setModel(request.getModel());
+        vehicle.setYear(request.getYear());
+        vehicle.setColor(request.getColor());
+        vehicle.setDailyPrice(request.getDailyPrice());
+        vehicle.setUpdatedAt(LocalDateTime.now());
 
         return mapper.toResponse(repository.save(vehicle));
     }
